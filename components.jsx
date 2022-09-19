@@ -30,12 +30,15 @@ function MyFunctionComponent() {
     const ctx = useContext(MyContext);
     const ref = useRef({}).current;
     const [state, setState] = useState({});
+
     const updateState = update => {
         if (ref.isMounted) {
-            const newState = Object.assign({}, state, update);
-            setState(newState);
+            const newState = Object.assign({}, ref.state, update);
+            // console.debug({ update, newState });
+            setState((ref.state = newState));
         }
     };
+    
     useEffect(() => {
         ref.isMounted = true;
         return () => {
