@@ -1,6 +1,8 @@
 import React, { createContex, useContext, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { Container, Row, Col } from 'react-bootstrap';
+
 import MyContext from './MyContext';
 
 /*
@@ -31,7 +33,7 @@ class MyClassComponent extends React.Component {
 const LayoutWrapper = props => {
     // const {} = useContext(MyContext);
     return (
-        <Container fluid id="sandbox" className="p-4">
+        <Container>
             <Row className="h-100">
                 <Col className="p-2">{props.children}</Col>
             </Row>
