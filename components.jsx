@@ -26,27 +26,49 @@ class MyClassComponent extends React.Component {
     }
 }
 
-function MyFunctionComponent() {
-    const ctx = useContext(MyContext);
-    const ref = useRef({}).current;
-    const [state, setState] = useState({});
+//
 
-    const updateState = update => {
+const LayoutWrapper = props => {
+    // const {} = useContext(MyContext);
+    return (
+        <Container fluid id="sandbox" className="p-4">
+            <Row className="h-100">
+                <Col className="p-2">{props.children}</Col>
+            </Row>
+        </Container>
+    );
+};
+
+const MyFunctionComponent = () => {
+    const ref = useRef({}).current;
+    const [state, setState] = useState((ref.state = {}));
+    const updateState = entries => {
         if (ref.isMounted) {
-            const newState = Object.assign({}, ref.state, update);
-            // console.debug({ update, newState });
-            setState((ref.state = newState));
+            setState(
+                (ref.state = {
+                    ...(ref.state || {}),
+                    ...(entries || {})
+                })
+            );
         }
     };
-    
+
     useEffect(() => {
         ref.isMounted = true;
         return () => {
+            ref.state = null;
             ref.isMounted = false;
         };
     }, []);
+
     return (
-        <div></div>
+        <MyContext.Provider value={{ lorem: 'ipsum' }}>
+            <LayoutWrapper>
+                {
+                    // content here
+                }
+            </LayoutWrapper>
+        </MyContext.Provider>
     );
-}
+};
 
