@@ -42,6 +42,7 @@ const LayoutWrapper = props => {
 };
 
 const MyFunctionComponent = () => {
+    /*
     const ref = useRef({}).current;
     const [state, setState] = useState((ref.state = {}));
     const updateState = entries => {
@@ -54,6 +55,20 @@ const MyFunctionComponent = () => {
             );
         }
     };
+    */
+
+    const ref = useRef({}).current;
+    const [state, setState] = useState({});
+    const updateState = entries => {
+        if (ref.isMounted) {
+            const prev = ref.state || {};
+            const next = entries || {};
+            const newState = { ...prev, ...next };
+            // console.log('𝘶𝘱𝘥𝘢𝘵𝘦𝘚𝘵𝘢𝘵𝘦', { prev, next, newState });
+            setState((ref.state = newState));
+        }
+    };
+    
 
     useEffect(() => {
         ref.isMounted = true;
